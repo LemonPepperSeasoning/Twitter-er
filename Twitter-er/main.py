@@ -1,6 +1,6 @@
 import requests
 import os
-from config import BEARER_TOKEN
+from config import BEARER_TOKEN, API_SECRET_KEY,CLIENT_SECRET,API_KEY,CLIENT_KEY
 from core.client import TweepyClient
 
 def bearer_oauth(r):
@@ -17,7 +17,15 @@ def test():
     print(response)
 
 def init_client():
-    new_client = TweepyClient(BEARER_TOKEN)
+
+    new_client = TweepyClient(
+        API_KEY,
+        API_SECRET_KEY,
+        CLIENT_KEY,
+        CLIENT_SECRET
+        )
+    
+    # new_client.make_a_tweet("First tweet via bot")
  
 def main():
     init_client()
