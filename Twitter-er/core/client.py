@@ -1,6 +1,8 @@
 import os
 import tweepy
 import openai
+from pytz import timezone
+from datetime import datetime, timedelta
 
 class TweepyClient:
     def __init__(self,consumer_key,consumer_secret,access_token,access_token_secret):
@@ -25,15 +27,54 @@ class OpenaiClient:
         openai.api_key = openai_key
         # print( openai.Engine.list() )
         
+
     def QnA(self):
+        
+        today = datetime.now(timezone("America/Los_Angeles")).strftime('%B %d %Y')
+        tomorrow = (datetime.now(timezone("America/Los_Angeles")) + timedelta(1)).strftime('%B %d %Y')
+        
         response = openai.Completion.create(
             engine="text-davinci-001",
-            prompt="I am a highly intelligent question answering bot. If you ask me a question that is rooted in truth, I will give you the answer. If you ask me a question that is nonsense, trickery, or has no clear answer, I will respond with \"Unknown\".\n\nQ: What is human life expectancy in the United States?\nA: Human life expectancy in the United States is 78 years.\n\nQ: Who was president of the United States in 1955?\nA: Dwight D. Eisenhower was president of the United States in 1955.\n\nQ: Which party did he belong to?\nA: He belonged to the Republican Party.\n\nQ: What is the square root of banana?\nA: Unknown\n\nQ: How does a telescope work?\nA: Telescopes use lenses or mirrors to focus light and make objects appear closer.\n\nQ: Where were the 1992 Olympics held?\nA: The 1992 Olympics were held in Barcelona, Spain.\n\nQ: How many squigs are in a bonk?\nA: Unknown\n\nQ: Where is the Valley of Kings?\nA:",
+            prompt=f"""
+            Q: Who is Batman?
+            A: Batman is a fictional comic book character.
+            
+            Q: What is torsalplexity?
+            A: ?
+            
+            Q: What is Devz9?
+            A: ?
+            
+            Q: Who is George Lucas?\nA: George Lucas is American film director and producer famous for creating Star Wars.
+            
+            Q: What is the capital of California?
+            A: Sacramento.
+            
+            Q: What orbits the Earth?
+            A: The Moon.
+            
+            Q: Who is Fred Rickerson?
+            A: ?
+            
+            Q: Any major events happening in November to December 2022?
+            A: The 2022 FIFA World Cup is scheduled to be the 22nd running of the FIFA World Cup competition, the quadrennial international men's football championship contested by the national teams of the member associations of FIFA. It is scheduled to take place in Qatar from 21 November to 18 December 2022.
+            
+            Q: Whats happening on febuary 14th 2022?
+            A: Valentine's Day is celebrated on February 14, and we are ready to shower our significant others with love and tokens of our affection. Unlike National Boyfriend Day, this day isn't just for the boyfriends — anyone and everyone can be shown some love today. 
+            
+            Q: What happened on september 11 2001?
+            A: The September 11 attacks, also commonly referred to as 9/11, were a series of four coordinated terrorist attacks by the militant Islamist terrorist group al-Qaeda against the United States on Tuesday, September 11, 2001.
+            
+            Q: How many moons does Mars have?
+            A: Two, Phobos and Deimos.
+            
+            Q:Today is {today} and tomrrow is {tomorrow}. Tell me what is happening tomorrow? Any predictions for cryptocurrency?
+            A:""",
             temperature=0,
-            max_tokens=100,
-            top_p=1,
+            max_tokens=60,
+            top_p=1.0,
             frequency_penalty=0.0,
-            presence_penalty=0.0,
-            stop=["\n"]
-        )
+            presence_penalty=0.0
+            )
         print(response)
+        return response['choices'][0]['text']

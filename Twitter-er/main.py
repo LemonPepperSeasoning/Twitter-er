@@ -29,7 +29,10 @@ def init_client():
         OPENAI_KEY
         )
     
-    openai_client.QnA()
+    msg = openai_client.QnA()
+    tweeter_client.make_a_tweet(msg)
+    
+    
     # new_client.make_a_tweet("First tweet via bot")
  
 def main():
