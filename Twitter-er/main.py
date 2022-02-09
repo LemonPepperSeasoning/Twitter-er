@@ -16,8 +16,7 @@ def test():
     response = requests.get(f"{URL}/{id}", auth=bearer_oauth, headers=headers)
     print(response)
 
-def init_client():
-
+def make_one_tweet():
     tweeter_client = TweepyClient(
         API_KEY,
         API_SECRET_KEY,
@@ -32,6 +31,21 @@ def init_client():
     msg = openai_client.QnA()
     tweeter_client.make_a_tweet(msg)
     
+def init_client():
+
+    tweeter_client = TweepyClient(
+        API_KEY,
+        API_SECRET_KEY,
+        CLIENT_KEY,
+        CLIENT_SECRET
+        )
+    
+    openai_client = OpenaiClient(
+        OPENAI_KEY
+        )
+    
+    # msg = openai_client.QnA()
+    # tweeter_client.make_a_tweet(msg)
     
     # new_client.make_a_tweet("First tweet via bot")
  
