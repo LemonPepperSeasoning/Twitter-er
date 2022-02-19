@@ -1,7 +1,12 @@
 import requests
 import os
-from config import BEARER_TOKEN, API_SECRET_KEY,CLIENT_SECRET,API_KEY,CLIENT_KEY,OPENAI_KEY
 from core.client import TweepyClient, OpenaiClient
+BEARER_TOKEN = ""
+API_SECRET_KEY = ""
+CLIENT_SECRET = ""
+API_KEY = ""
+CLIENT_KEY = ""
+OPENAI_KEY = ""
 
 def bearer_oauth(r):
     # To set your environment variables in your terminal run the following line:
@@ -17,6 +22,9 @@ def test():
     print(response)
 
 def make_one_tweet():
+    print(API_KEY)
+    print(API_SECRET_KEY)
+
     tweeter_client = TweepyClient(
         API_KEY,
         API_SECRET_KEY,
@@ -48,8 +56,22 @@ def init_client():
     # tweeter_client.make_a_tweet(msg)
     
     # new_client.make_a_tweet("First tweet via bot")
- 
-def main():
+
+def get_env_variable():
+    global BEARER_TOKEN, API_SECRET_KEY,CLIENT_SECRET,API_KEY,CLIENT_KEY,OPENAI_KEY
+    BEARER_TOKEN = (os.environ['BEARER_TOKEN'])   
+    API_SECRET_KEY = (os.environ['API_SECRET_KEY'])   
+    CLIENT_SECRET = (os.environ['CLIENT_SECRET'])   
+    API_KEY = (os.environ['API_KEY'])   
+    CLIENT_KEY = (os.environ['CLIENT_KEY'])   
+    OPENAI_KEY = (os.environ['OPENAI_KEY'])   
+
+def get_variable_from_config():
+    from config import BEARER_TOKEN, API_SECRET_KEY,CLIENT_SECRET,API_KEY,CLIENT_KEY,OPENAI_KEY
+    return
+    
+def main():    
+    get_env_variable()
     make_one_tweet()
     # init_client()
     
