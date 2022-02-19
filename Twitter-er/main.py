@@ -50,7 +50,8 @@ def init_client():
     # new_client.make_a_tweet("First tweet via bot")
  
 def main():
-    init_client()
+    make_one_tweet()
+    # init_client()
     
     # test()
     
